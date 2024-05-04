@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stopwatch</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body{
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: black;
+        }
+
+        h1{
+            text-align: center;
+            color: white;
+            font-size: 60px;
+        }
+
+        .container{
+            border: 1px solid yellow;
+            border-radius: 10px;
+            padding: 10px;
+            width: 300px;
+            height: 350px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .btn{
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-evenly;
+            margin: 5px;
+            width: 70px;
+            height: 30px;
+            border-radius: 25px;
+            border: none;
+            outline: none;
+            background-color: greenyellow;
+        }
+        
+        .btns{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        
+        }
+
+        .countValue{
+            color: white;
+            font-size: 25px;
+            margin-top: 15px;
+            overflow: scroll;
+        }
+
+        .countValue::-webkit-scrollbar{
+            display: none;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 id="countdown">0</h1>
+        <div class="btns">
+            <button class="btn start">Start</button>
+            <button class="btn stop">Stop</button>
+            <button class="btn reset">Reset</button>
+            <button class="btn gettime">Gettime</button>
+            <button class="btn cleartime">Cleartime</button>
+        </div>
+        <div class="countValue"></div>
+    </div>
+
+    <script>
+      const countDown = document.getElementById('countdown');
+      const countVal = document.querySelector('.countValue');
+
+      const startBtn = document.querySelector('.start');
+      const stopBtn = document.querySelector('.stop');
+      const resetBtn = document.querySelector('.reset');
+      const getTimeBtn = document.querySelector('.gettime');
+      const clearBtn = document.querySelector('.cleartime');
+
+      let startCount = 0;
+      let intervalId;
+    
+      startBtn.addEventListener('click', () => {
+        intervalId =  setInterval(() => countDown.innerHTML = startCount++, 1000)
+      });
+
+      stopBtn.addEventListener('click', () => {
+        clearInterval(intervalId);
+      })
+
+      resetBtn.addEventListener('click', () => {
+        startCount = 0;
+        countDown.innerHTML = startCount;
+        clearInterval(intervalId);
+      })
+
+      getTimeBtn.addEventListener('click', () => {
+        if(startCount === 0){
+            let newEle = document.createElement('p')
+            newEle.innerHTML = startCount;
+            countVal.append(newEle);
+        }else if(startCount > 0){
+            console.log(startCount - 1);
+            let newEle = document.createElement('p')
+            newEle.innerHTML = startCount - 1;
+            countVal.append(newEle);
+        }   
+      })
+
+      clearBtn.addEventListener('click', () => {
+        countVal.innerHTML = '';
+      })
+
+    </script>
+</body>
+</html>
